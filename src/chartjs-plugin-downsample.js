@@ -1,6 +1,7 @@
 var Chart = require('chart.js');
 Chart = typeof(Chart) === 'function' ? Chart : window.Chart;
 
+// test
 var helpers = Chart.helpers;
 
 var defaultOptions = {
