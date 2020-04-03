@@ -143,7 +143,26 @@ function downsampleChart(chartInstance) {
         }
         dataToDownsample = dataToDownsample || dataset.data;
 
-        dataset.originalData = dataToDownsample;
+        try {
+
+            let deep_copy = [];
+            for (let j = 0; j < dataToDownsample.length; j++) {
+                let point_object = {};
+
+                point_object.x = new Date(dataToDownsample[j].x.toString());
+                point_object.y = JSON.parse(JSON.stringify(dataToDownsample[j].y));
+
+                deep_copy.push(point_object);
+            }
+            dataset.originalData = deep_copy;
+        } catch (error) {
+            console.log(error)
+            // In case of error do the OG copy by reference
+            dataset.originalData = dataToDownsample;
+        }
+        
+        
+        //dataset.originalData = dataToDownsample;
         dataset.data = downsample(dataToDownsample, threshold);
     }
 }
